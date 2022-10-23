@@ -36,8 +36,9 @@ public class ShopRunner {
         for (int i = 0; i < names.length; i++) {
             products.add(new Product(i, names[i], prices[i]));
         }
+        Cart cart = new Cart(10);
 
-        Shop shop = new Shop(products);
+        Shop shop = new Shop("T-Shirt Mart", products, cart);
         //Menu menu = new Menu(scanner, shop);
         Menu menu = new Menu(scanner, shop);
         menu.greet();

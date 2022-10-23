@@ -93,6 +93,10 @@ public class Menu {
                 exit();
             } else if (select == 1) {
                 shop.printProducts();
+            } else if (select == 2) {
+                System.out.println("Please enter the ID of the product you would like to purchase:");
+                int id = getNextIntFromUser();
+                shop.addToCart(id);
             } else if (select == 3) {
                 System.out.println("Enter the item to search for:");
                 String findItem = seekProduct();
@@ -102,6 +106,11 @@ public class Menu {
                 } else {
                     System.out.println(findItem + " was found and its product id is " + index);
                 }
+            } else if (select == 4) {
+                shop.showCartDetails();
+            } else if (select == 5) {
+                shop.checkoutCart();
+                exit();
             }
         }
         //exit();
