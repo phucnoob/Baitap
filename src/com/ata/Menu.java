@@ -20,6 +20,8 @@ import java.util.Scanner;
 
 public class Menu {
 
+    private boolean closed = false;
+
     String[] menuOptions = {
 
         "Exit",
@@ -66,9 +68,8 @@ public class Menu {
     public Menu(Scanner scanner, Shop shop) {
 
         this.scanner = scanner;
-
         this.shop = shop;
-
+        this.closed = false;
     }
 
 
@@ -84,38 +85,25 @@ public class Menu {
 
     public void executeMenu() {
 
-        printMenu();
+        while (!isClosed()) {
+            printMenu();
 
-        int select = getNextIntFromUser();
-
-        if (select == 0) {
-
-            exit();
-
-        } else if (select == 1) {
-
-            shop.printProducts();
-
-        } else if (select == 3) {
-
-            System.out.println("Enter the item to search for:");
-
-            String findItem = seekProduct();
-
-            int index = shop.findProduct(findItem);
-
-            if (index == -1) {
-
-                System.out.println("That product was not found.");
-
-            } else {
-
-                System.out.println(findItem + " was found and its product id is " + index);
-
+            int select = getNextIntFromUser();
+            if (select == 0) {
+                exit();
+            } else if (select == 1) {
+                shop.printProducts();
+            } else if (select == 3) {
+                System.out.println("Enter the item to search for:");
+                String findItem = seekProduct();
+                int index = shop.findProduct(findItem);
+                if (index == -1) {
+                    System.out.println("That product was not found.");
+                } else {
+                    System.out.println(findItem + " was found and its product id is " + index);
+                }
             }
-
         }
-
         //exit();
 
     }
@@ -128,14 +116,9 @@ public class Menu {
      */
 
     public void greet() {
-
         System.out.println("Hello. Please enter your name:");
-
         String name = scanner.nextLine();
-
-
         System.out.println("Welcome " + name + " to " + "T-Shirt Mart");
-
     }
 
 
@@ -144,25 +127,14 @@ public class Menu {
      */
 
     private void printMenu() {
-
         System.out.println();
-
         System.out.println("--Main Menu--");
-
         System.out.println("Select an option using one of the numbers shown");
-
         System.out.println();
-
-
         for (int i = 0; i < menuOptions.length; i++) {
-
             System.out.print(i + ": ");
-
             System.out.println(menuOptions[i]);
-
-
         }
-
     }
 
     /*
@@ -217,11 +189,9 @@ public class Menu {
      */
 
     private void exit() {
-
         System.out.println("Exiting now. Goodbye.");
-
         scanner.close();
-
+        closed = true;
     }
 
 
@@ -256,12 +226,11 @@ public class Menu {
 
     } */
     private String getNextStringLineFromUser() {
-
-
         scanner.nextLine();
-
         return scanner.nextLine();
-
     }
 
+    public boolean isClosed() {
+        return closed;
+    }
 }
